@@ -1,13 +1,15 @@
-@Library("jenkinsLibrary") _
+@Library("shared") _
 
 pipeline {
     agent any
     
     environment {
-        DOCKER_IMAGE = 'tusharv02/easyshop' 
-        DOCKER_MIGRATION_IMAGE = 'tusharv02/easyshop-migration' 
-        DOCKER_CREDENTIALS = "dockerHubCredentials"
+        DOCKER_IMAGE = 'tusharv02/e-commerce' 
+        DOCKER_MIGRATION_IMAGE = 'tusharv02/e-commerce-migration' 
+        DOCKER_CREDENTIALS = credentials("docker-hub-credentials")
+        GITHUB_CREDENTIALS = credentials("github-credentials")
         EMAIL_ADDRESS = "tusharvalmiki0204@gmail.com"
+        GIT_BRANCH = "hackathon"
     }
     
     stages {
@@ -26,7 +28,7 @@ pipeline {
         stage("Code Repository") {
             steps {
                 cloneRepository(
-                    branch: "master",
+                    branch: "hackathon",
                     repoUrl: "https://github.com/tushar8400/e-commerce-app.git"
                 )
             }
@@ -34,17 +36,6 @@ pipeline {
         stage("Trivy File System Scanning") {
             steps {
                 trivyFileSystemScan()
-            }
-        }
-        stage("SonarQube Quality Analysis") {
-            steps {
-                sonarQubeAnalysis(
-                    sonarQubeTokenName: 'sonarQubeToken', 
-                    sonarQubeProjectKey: 'ecom', 
-                    sonarQubeProjectName: 'e-commerce', 
-                    sonarQubeInstallationName: 'sonarQubeScanner',
-                    sonarQubeScannerHome: "${SONAR_HOME}" 
-                )
             }
         }
         stage("Docker Image Build") {
