@@ -4,11 +4,10 @@ pipeline {
     agent any
     
     environment {
-        SONAR_HOME = tool "sonarQubeScanner"
-        DOCKER_IMAGE = 'muhammadabdullahabrar/easyshop' 
-        DOCKER_MIGRATION_IMAGE = 'muhammadabdullahabrar/easyshop-migration' 
+        DOCKER_IMAGE = 'tusharv02/easyshop' 
+        DOCKER_MIGRATION_IMAGE = 'tusharv02/easyshop-migration' 
         DOCKER_CREDENTIALS = "dockerHubCredentials"
-        EMAIL_ADDRESS = "abdullahabrar4843@gmail.com"
+        EMAIL_ADDRESS = "tusharvalmiki0204@gmail.com"
     }
     
     stages {
@@ -28,7 +27,7 @@ pipeline {
             steps {
                 cloneRepository(
                     branch: "master",
-                    repoUrl: "https://github.com/Abdullah-0-3/tws-e-commerce-app.git"
+                    repoUrl: "https://github.com/tushar8400/e-commerce-app.git"
                 )
             }
         }

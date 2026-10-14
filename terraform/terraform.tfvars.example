@@ -1,0 +1,7 @@
+# Copy to terraform.tfvars and edit
+admin_cidr = "203.0.113.10/32" # your public IP
+tags = {
+  Project     = "EasyShop"
+  Environment = "dev"
+  ManagedBy   = "terraform"
+}
